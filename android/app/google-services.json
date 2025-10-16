@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "78265042413",
+    "project_id": "movinity-a25c2",
+    "storage_bucket": "movinity-a25c2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78265042413:android:51c1a3f256af2b1558d3e4",
+        "android_client_info": {
+          "package_name": "com.example.movinity"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4L-MIk2rnMoOINxJ1v1ZOZFmTMG9MZjg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
