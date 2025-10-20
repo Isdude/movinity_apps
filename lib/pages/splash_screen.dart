@@ -31,7 +31,6 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Logo aplikasi
             Image.asset('assets/movinity.png', height: 120),
             const SizedBox(height: 20),
             Text(

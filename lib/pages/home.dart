@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
 import 'movie_detail.dart';
+import 'signin_movinity.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -81,9 +82,47 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {},
           ),
           const SizedBox(width: 10),
-          IconButton(
+          PopupMenuButton<String>(
             icon: const Icon(Icons.menu, color: Colors.white),
-            onPressed: () {},
+            color: Colors.black87,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            onSelected: (value) {
+              if (value == 'Profile') {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => const PinPutPage()),
+                // );
+              } else if (value == 'Logout') {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SignInPage()),
+                );
+              }
+            },
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: 'Profile',
+                child: Row(
+                  children: const [
+                    Icon(Icons.person, color: Colors.white),
+                    SizedBox(width: 10),
+                    Text("Profile", style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                value: 'Logout',
+                child: Row(
+                  children: const [
+                    Icon(Icons.logout, color: Colors.white),
+                    SizedBox(width: 10),
+                    Text("Logout", style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),

@@ -1,11 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../firebase_options.dart';
-import 'signup_movinity.dart';
-import 'home.dart';
 import 'whos_watching.dart';
+import 'signup_movinity.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -40,7 +37,7 @@ class _SignInPageState extends State<SignInPage> {
       String message;
       if (e.code == 'user-not-found') {
         message = "Akun tidak ditemukan!";
-      }else {
+      } else {
         message = "Login gagal, coba lagi.";
       }
 
@@ -49,150 +46,163 @@ class _SignInPageState extends State<SignInPage> {
       );
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF00234B),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    image: const DecorationImage(
-                      image: AssetImage('assets/movinity.png'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+      body: Stack(
+        children: [
+          // 🔹 Background Image
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/blue.jpeg"),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
 
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          Container(
+            color: Colors.black.withOpacity(0.6),
+          ),
+          SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 30),
+                    Image.asset(
+                      'assets/movinity.png',
+                      width: 120,
+                      height: 120,
+                    ),
+
+                    const SizedBox(height: 40),
+
                     Text(
-                      "Sign In",
+                      "Film, acara TV tak terbatas,\ndan banyak lagi",
+                      textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
-                        textStyle: TextStyle(color: Colors.white, fontSize: 36),
+                        color: Colors.white,
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                        height: 1.3,
                       ),
                     ),
-                    SizedBox(height: 2),
+
+                    const SizedBox(height: 10),
+
+                    Text(
+                      "Nikmati Hari Libur Hanya di Movinity.",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        color: Colors.white70,
+                        fontSize: 14,
+                      ),
+                    ),
+
+                    const SizedBox(height: 40),
+
+                    // Email input
+                    TextField(
+                      controller: emailController,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        hintText: 'Masukkan email',
+                        hintStyle: const TextStyle(color: Colors.white54),
+                        filled: true,
+                        fillColor: Colors.black.withOpacity(0.4),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // Password input
+                    TextField(
+                      controller: passwordController,
+                      obscureText: true,
+                      style: const TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        hintText: 'Masukkan password',
+                        hintStyle: const TextStyle(color: Colors.white54),
+                        filled: true,
+                        fillColor: Colors.black.withOpacity(0.4),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                      ),
+                    ),
+
+                    const SizedBox(height: 30),
+
+                    // Tombol Login
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: login,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF004CFF), // merah Netflix
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text(
+                          "Masuk",
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 20),
+
+                    // Tombol ke Sign Up
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "New to Movinity?",
+                          "Baru di Movinity?",
                           style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                            ),
+                            color: Colors.white70,
+                            fontSize: 14,
                           ),
                         ),
                         TextButton(
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => SignUpPage(),
-                              ),
+                              MaterialPageRoute(builder: (context) => const SignUpPage()),
                             );
                           },
                           child: Text(
-                            'Sign Up',
+                            "Daftar sekarang",
                             style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 14,
-                                decoration: TextDecoration.underline,
-                              ),
+                              color: const Color(0xFF004CFF),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                       ],
                     ),
-                    SizedBox(height: 40),
-                    Text(
-                      'Email',
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    TextField(
-                      controller: emailController,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        hintText: 'Enter your email',
-                        filled: true,
-                        fillColor: Color(0xFF000C1C),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      'Password',
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    TextField(
-                      controller: passwordController,
-                      obscureText: true,
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        hintText: 'Enter your password',
-                        filled: true,
-                        fillColor: Color(0xFF000C1C),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 40),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 55,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          login();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF004CFF),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        child: Text(
-                          "Sign In",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
